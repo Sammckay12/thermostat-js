@@ -33,8 +33,11 @@ describe('thermostat', function() {
 
   describe('power saving', function() {
     it('has a maximum temperature of 25 when power saving is on' , function() {
-      // thermostat.up(5);
-      // expect(thermostat.degrees()).toEqual(25);
+      expect(function() {thermostat.changeTemperature(26)}).toThrow('Cannot change temperature: Max temp is 25 when power saving is on')
+    });
+    it('has a maximum temperature of 32 when power saving is off' , function() {
+      thermostat.powersaving = false;
+      expect(function() {thermostat.changeTemperature(33)}).toThrow('Cannot change temperature: Max temp is 32 when power saving is off')
     });
   });
 
