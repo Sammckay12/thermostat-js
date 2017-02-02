@@ -1,10 +1,10 @@
 function Thermostat () {
   this._degrees = 20;
   this._minTemperature = 10;
-  this.powersaving = true;
+  this._powersaving = true;
+  this._maxTemp = 25;
   this._maxTempWithPowerSavingTrue = 25;
   this._maxTempWithPowerSavingFalse = 32;
-
 };
 
 Thermostat.prototype.readTemperature = function(){
@@ -14,12 +14,9 @@ Thermostat.prototype.readTemperature = function(){
 Thermostat.prototype.changeTemperature = function(degrees) {
   errorMsg = 'Cannot change temperature: '
   if (degrees < this._minTemperature) { throw (errorMsg + 'Min temperature is ' + this._minTemperature ) };
-  if (this.powersaving && degrees > this._maxTempWithPowerSavingTrue) {
-    throw (errorMsg + 'Max temp is 25 when power saving is on' )
-  }
-  if (this.powersaving == false && degrees > this._maxTempWithPowerSavingFalse) {
-    throw (errorMsg + 'Max temp is 32 when power saving is off' )
-  }
+  if (degrees > this._maxTemp) {
+    throw (errorMsg + 'Max temp is ' + this._maxTemp + ' when power saving is ' +  this.getPowerSavingModeOnOrOff())
+  };
 
   return this._degrees = degrees
 };
@@ -30,4 +27,18 @@ Thermostat.prototype.up = function(degrees) {
 
 Thermostat.prototype.down = function(degrees) {
   return this.changeTemperature( this.readTemperature() - degrees)
+};
+
+Thermostat.prototype.readPowerSavingMode = function () {
+  return this._powersaving
+};
+
+Thermostat.prototype.changePowerSavingMode = function (bool) {
+  this._maxTemp = bool ? this._maxTempWithPowerSavingTrue : this._maxTempWithPowerSavingFalse;
+  return this._powersaving = bool
+};
+
+
+Thermostat.prototype.getPowerSavingModeOnOrOff = function () {
+  return this._powersaving ? 'on' : 'off'
 };

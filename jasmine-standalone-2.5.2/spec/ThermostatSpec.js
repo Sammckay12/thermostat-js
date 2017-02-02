@@ -36,7 +36,8 @@ describe('thermostat', function() {
       expect(function() {thermostat.changeTemperature(26)}).toThrow('Cannot change temperature: Max temp is 25 when power saving is on')
     });
     it('has a maximum temperature of 32 when power saving is off' , function() {
-      thermostat.powersaving = false;
+      thermostat.changePowerSavingMode(false);
+      thermostat.changeTemperature(26);
       expect(function() {thermostat.changeTemperature(33)}).toThrow('Cannot change temperature: Max temp is 32 when power saving is off')
     });
   });
