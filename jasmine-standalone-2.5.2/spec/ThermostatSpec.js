@@ -31,7 +31,7 @@ describe('thermostat', function() {
     });
   });
 
-  describe('power saving', function() {
+  describe('changePowerSavingMode(boolean)', function() {
     it('has a maximum temperature of 25 when power saving is on' , function() {
       expect(function() {thermostat.changeTemperature(26)}).toThrow('Cannot change temperature: Max temp is 25 when power saving is on')
     });
@@ -42,5 +42,26 @@ describe('thermostat', function() {
     });
   });
 
+  describe('resetTemperature()', function() {
+    it('has a maximum temperature of 32 when power saving is off' , function() {
+      thermostat.changeTemperature(23);
+      expect(thermostat.resetTemperature()).toEqual(20);
+    });
+  });
 
+  describe('energyUsage()', function() {
+    it('shows \'low-usage\' when temperature is less than 18' , function() {
+      thermostat.changeTemperature(17);
+      expect(thermostat.energyUsage()).toEqual('low-usage');
+    });
+    it('shows \'medium-usage\' when temperature is less than 25' , function() {
+      thermostat.changeTemperature(24);
+      expect(thermostat.energyUsage()).toEqual('medium-usage');
+    });
+    it('shows \'high-usage\' when temperature is equal or more than 25' , function() {
+      thermostat.changePowerSavingMode(false);
+      thermostat.changeTemperature(26);
+      expect(thermostat.energyUsage()).toEqual('high-usage');
+    });
+  });
  });
