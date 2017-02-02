@@ -24,11 +24,11 @@ Thermostat.prototype.changeTemperature = function(degrees) {
   return this._degrees = degrees
 };
 
-Thermostat.prototype.up = function(degrees) {
+Thermostat.prototype.changeTemperatureUp = function(degrees) {
   return this.changeTemperature(degrees + this.readTemperature())
 };
 
-Thermostat.prototype.down = function(degrees) {
+Thermostat.prototype.changeTemperatureDown = function(degrees) {
   return this.changeTemperature( this.readTemperature() - degrees)
 };
 

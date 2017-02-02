@@ -17,16 +17,16 @@ describe('thermostat', function() {
     });
   });
 
-  describe('up(degrees)', function() {
+  describe('changeTemperatureUp(degrees)', function() {
     it('increases temperature by degrees' , function() {
-      thermostat.up(5);
+      thermostat.changeTemperatureUp(5);
       expect(thermostat.readTemperature()).toEqual(25);
     });
   });
 
-  describe('down(degrees)', function() {
+  describe('changeTemperatureDown(degrees)', function() {
     it('decreases temperature by degrees' , function() {
-      thermostat.down(5);
+      thermostat.changeTemperatureDown(5);
       expect(thermostat.readTemperature()).toEqual(15);
     });
   });
